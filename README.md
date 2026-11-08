@@ -20,10 +20,10 @@ More skills are coming.
 Copy the skill folder into your personal skills directory:
 
 ```bash
-git clone https://github.com/patcrowebar/ai-pm-skills.git
+git clone https://github.com/patcrowebar/builder-pm-skills.git
 mkdir -p ~/.claude/skills
-cp -r ai-pm-skills/skills/build-to-learn ~/.claude/skills/
-cp -r ai-pm-skills/skills/ux-review ~/.claude/skills/
+cp -r builder-pm-skills/skills/build-to-learn ~/.claude/skills/
+cp -r builder-pm-skills/skills/ux-review ~/.claude/skills/
 ```
 
 To make it available in a single project only, copy it into that project's `.claude/skills/` folder instead.
@@ -37,7 +37,7 @@ To make it available in a single project only, copy it into that project's `.cla
 ### skills CLI
 
 ```bash
-npx skills add https://github.com/patcrowebar/ai-pm-skills --skill build-to-learn
+npx skills add https://github.com/patcrowebar/builder-pm-skills --skill build-to-learn
 ```
 
 ## Using a skill
@@ -54,7 +54,7 @@ Each skill folder includes:
 ## Repo structure
 
 ```
-ai-pm-skills/
+builder-pm-skills/
 ├── README.md
 ├── LICENSE
 └── skills/
