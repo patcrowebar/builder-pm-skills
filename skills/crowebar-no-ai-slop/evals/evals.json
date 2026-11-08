@@ -1,0 +1,92 @@
+{
+  "skill_name": "crowebar-no-ai-slop",
+  "notes": "Run each prompt with the skill and with plain Claude (no skill). Grade both against the expectations. The skill earns its place only if its edits keep the writer's voice and facts while removing more slop, not just if they are shorter. Also run `python3 scripts/tells.py example` after any change to assets/tells.json: every pair should still score 60+ before, 15 or less after, with no fact errors.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "edit-keeps-voice",
+      "prompt": "Fix this before I post it: 'Honestly? I almost quit this project in June. The onboarding was a mess and I knew it. Here's the thing nobody tells you: fixing onboarding isn't just a design problem, it's a product problem. We cut it from 9 screens to 3 and signups went up 22%. Ultimately, simplicity wins.'",
+      "expectations": [
+        "Removes the faux-insight setup, the binary contrast, and the 'Ultimately, simplicity wins' kicker",
+        "Keeps the writer's voice: 'Honestly?', the admission about almost quitting, the short sentences",
+        "Keeps June, 9 screens, 3 screens, and 22%; adds no new facts",
+        "Returns the full edited post and a short What changed section ending with the fact-guard result"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "detect-no-rewrite-no-score",
+      "prompt": "Is this AI slop? Just tell me, don't rewrite: 'In today's ever-evolving landscape, our cutting-edge platform empowers teams to unlock their full potential. Whether you're a startup or an enterprise, we've got you covered.'",
+      "expectations": [
+        "Names each pattern with the quoted line and a short fix",
+        "Does not rewrite the text",
+        "Does not show an accent score or claim the text was written by AI",
+        "Offers to edit it afterward"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "no-invented-facts",
+      "prompt": "Make this product blurb more compelling: 'The TrailPack 30 is a hiking backpack with a 30-liter capacity and a rain cover. $89.'",
+      "expectations": [
+        "Keeps 30 liters, the rain cover, and $89",
+        "Does not invent weight, materials, reviews, or comparisons",
+        "Stays short and asks for one real detail that would make it stronger",
+        "If code ran, the fact guard reports nothing added"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "formal-stays-formal",
+      "prompt": "Make this condolence note sound less like a template: 'Please accept my heartfelt condolences. During this difficult time, know that words cannot express the depth of your loss. Her 25 years of dedicated service will continue to inspire us all.'",
+      "expectations": [
+        "Removes 'heartfelt,' 'during this difficult time,' 'words cannot express,' and 'will continue to inspire'",
+        "Stays formal: no contractions, slang, or casual asides",
+        "Keeps the 25 years",
+        "Says something plain instead of swapping in new stock phrases"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "x-reply-specificity",
+      "prompt": "Polish my reply to a big account's post about AI agents: 'Great point! This is so true. Agents are a game-changer and the future is bright. Agree?'",
+      "expectations": [
+        "Flags that the reply would fit under any post on the topic, so it fails X's reply-specificity check",
+        "Flags 'Agree?' as engagement bait",
+        "Asks the user for their specific angle, number, or experience instead of inventing one",
+        "Does not promise the reply will pass X's checks"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "literal-use-not-flagged",
+      "prompt": "Check this for AI slop: 'We used robust standard errors in the regression. Our test harness runs 200 cases per build. The phone was unlocked when we found it.'",
+      "expectations": [
+        "Does not flag 'robust' (statistics), 'harness' (test harness), or 'unlocked' (literal)",
+        "Reports that no real slop patterns were found, or only minor ones",
+        "Does not invent problems to have something to say"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "support-reply-boilerplate",
+      "prompt": "Clean up this support reply: 'Thank you for reaching out! I sincerely apologize for any inconvenience. Your satisfaction is our top priority. I've issued a refund of $42.50 for order #7731, which will arrive in 5-7 business days. Please don't hesitate to contact us if you need further assistance.'",
+      "expectations": [
+        "Cuts the apology template, the satisfaction line, and the 'don't hesitate' closer",
+        "Says what went wrong if the draft states it, or asks; does not invent a cause",
+        "Keeps $42.50, #7731, and 5-7 business days exactly",
+        "Leads with the refund"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "em-dash-rule",
+      "prompt": "Edit this 400-word essay draft for slop. [Paste a 400-word draft with six em dashes, two of them clearly better than any alternative.]",
+      "expectations": [
+        "Removes most em dashes and keeps at most 1-2 where they clearly beat a comma, period, or parentheses",
+        "Does not replace em dashes with spaced hyphens or '--'",
+        "Restructures sentences instead of swapping punctuation"
+      ]
+    }
+  ]
+}
