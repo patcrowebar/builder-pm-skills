@@ -1,4 +1,4 @@
-# AI PM Skills
+# Builder PM Skills
 
 Agent skills for product managers and AI-native builders, by [Pat Crowe](https://github.com/patcrowebar) / Crowebar Labs.
 
